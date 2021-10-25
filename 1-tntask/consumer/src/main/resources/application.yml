@@ -1,0 +1,49 @@
+server:
+  port: 7001
+  servlet:
+    context-path: /tntask
+
+
+logging:
+  level:
+    com.alibaba.nacos: warn
+
+nacos:
+  config:
+    server-addr: 192.168.0.198:8848
+    # file-extension: yaml
+    namespace: 95667779-9958-4384-998e-8679a008ec41
+    data-id: tfile
+    group: tncet
+    auto-refresh: true
+    max-retry: 10
+    # username: nacos
+    # password: nacos
+    type: yaml
+    bootstrap:
+      enable: true
+  discovery:
+    server-addr: 192.168.0.198:8848
+    namespace: 95667779-9958-4384-998e-8679a008ec41
+  #   # username: nacos
+  #   # password: nacos
+  #   auto-register: true
+    register:
+      service-name: tfile
+      group-name: tncet
+
+dubbo:
+  monitor:
+    protocol: registry
+  application:
+    name: tfile
+  protocol:
+    name: dubbo
+    port: 20880
+  registry:
+    address: nacos://192.168.0.198:8848
+    parameters:
+      namespace: 95667779-9958-4384-998e-8679a008ec41
+      group: tncet
+  consumer:
+    timeout: 3000
